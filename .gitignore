@@ -1,0 +1,19 @@
+# Node
+node_modules
+npm-debug.log*
+yarn*.log*
+pnpm-debug.log*
+dist
+
+# Env
+.env
+*.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Prisma
+backend/prisma/dev.db*
+
+/src/generated/prisma
