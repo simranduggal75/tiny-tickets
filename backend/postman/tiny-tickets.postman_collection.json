@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "1f73b5da-82ac-4676-b716-0d562e7f97e6",
+		"name": "tiny-tickets",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46304422",
+		"_collection_link": "https://simranduggal-9903373.postman.co/workspace/Simran-Duggal's-Workspace~67fd5cf0-9199-4488-873b-55ec19850dd6/collection/46304422-1f73b5da-82ac-4676-b716-0d562e7f97e6?action=share&source=collection_link&creator=46304422"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"email\":\"alice@example.com\", \"name\":\"Alice\", \"password\":\"test1234\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5088/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5088",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
