@@ -8,11 +8,28 @@
 	},
 	"item": [
 		{
+			"name": "AUTH",
+			"item": []
+		},
+		{
+			"name": "projects",
+			"item": []
+		},
+		{
+			"name": "tickets",
+			"item": []
+		},
+		{
+			"name": "comments",
+			"item": []
+		},
+		{
+			"name": "labels",
+			"item": []
+		},
+		{
 			"name": "register",
 			"request": {
-				"auth": {
-					"type": "noauth"
-				},
 				"method": "POST",
 				"header": [
 					{
@@ -22,7 +39,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \"email\":\"alice@example.com\", \"name\":\"Alice\", \"password\":\"test1234\" }",
+					"raw": "{\r\n    \"email\": \"outsider@gmail.com\",\r\n    \"name\": \"outsider\",\r\n    \"password\": \"outout1234\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -30,12 +47,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:5088/auth/register",
-					"protocol": "http",
+					"raw": "{{baseURL}}/auth/register",
 					"host": [
-						"localhost"
+						"{{baseURL}}"
 					],
-					"port": "5088",
 					"path": [
 						"auth",
 						"register"
@@ -47,16 +62,59 @@
 		{
 			"name": "login",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"alice@example.com\",\r\n    \"password\": \"test1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/auth/login",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"auth",
+						"login"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "POST/projects",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"JAVA\",\r\n  \"description\": \"JAVA project\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/projects/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"projects",
+						""
+					]
+				}
 			},
 			"response": []
 		},
@@ -64,7 +122,16 @@
 			"name": "GET/projects",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/projects",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"projects"
+					]
+				}
 			},
 			"response": []
 		},
@@ -72,17 +139,308 @@
 			"name": "GET/projects/:id",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/projects/cmey04tdc00092r3urtyx7kh6",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"projects",
+						"cmey04tdc00092r3urtyx7kh6"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "POST/members",
 			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"outsider@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/projects/cmey04tdc00092r3urtyx7kh6/members",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"projects",
+						"cmey04tdc00092r3urtyx7kh6",
+						"members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST/createTickets",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbWV2N29mZ3QwMDAwazFvYnE1d3kxOWRmIiwiZW1haWwiOiJhbGljZUBleGFtcGxlLmNvbSIsIm5hbWUiOiJBbGljZSIsImlhdCI6MTc1NjU1MjIxNiwiZXhwIjoxNzU3MTU3MDE2fQ.-U8E6V69VvtTOrk9cmRBzjORTEenpR-o_5wW3IYWPAA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"find bugss\",\r\n    \"description\": \"find bugssnd \",\r\n    \"priority\": \"MEDIUM\",\r\n    \"status\": \"OPEN\",\r\n    \"assigneeId\": \"<userId>\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/projects/cmey04tdc00092r3urtyx7kh6/tickets",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"projects",
+						"cmey04tdc00092r3urtyx7kh6",
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List tickets",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbWV2N29mZ3QwMDAwazFvYnE1d3kxOWRmIiwiZW1haWwiOiJhbGljZUBleGFtcGxlLmNvbSIsIm5hbWUiOiJBbGljZSIsImlhdCI6MTc1NjU0OTYxOSwiZXhwIjoxNzU3MTU0NDE5fQ.9nNQTUQaBoPHgMSyyAfvvHZ7DP95slf-RbYyYytq7dY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/projects/cmey04tdc00092r3urtyx7kh6/tickets",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"projects",
+						"cmey04tdc00092r3urtyx7kh6",
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List tickets by filter",
+			"request": {
 				"method": "GET",
 				"header": []
 			},
 			"response": []
+		},
+		{
+			"name": "ticket details by ticket id",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "update tickets",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete tickets",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create comments",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbWV2N29mZ3QwMDAwazFvYnE1d3kxOWRmIiwiZW1haWwiOiJhbGljZUBleGFtcGxlLmNvbSIsIm5hbWUiOiJBbGljZSIsImlhdCI6MTc1NjU1MjIxNiwiZXhwIjoxNzU3MTU3MDE2fQ.-U8E6V69VvtTOrk9cmRBzjORTEenpR-o_5wW3IYWPAA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"body\": \"This bug needs urgent attention\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/tickets/cmey4neah000312xrq0f6epex/comments",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"tickets",
+						"cmey4neah000312xrq0f6epex",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list comments",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbWV2N29mZ3QwMDAwazFvYnE1d3kxOWRmIiwiZW1haWwiOiJhbGljZUBleGFtcGxlLmNvbSIsIm5hbWUiOiJBbGljZSIsImlhdCI6MTc1NjU1MjIxNiwiZXhwIjoxNzU3MTU3MDE2fQ.-U8E6V69VvtTOrk9cmRBzjORTEenpR-o_5wW3IYWPAA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/tickets/cmey4neah000312xrq0f6epex/comments",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"tickets",
+						"cmey4neah000312xrq0f6epex",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create labels",
+			"request": {
+				"method": "POST",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "list labels",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "attach label",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "detach label",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/tickets/cmey6snxb0003e18g903fk4za/labels/cmey98d800001kqpfsbgyustu",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"tickets",
+						"cmey6snxb0003e18g903fk4za",
+						"labels",
+						"cmey98d800001kqpfsbgyustu"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjbWV2N29mZ3QwMDAwazFvYnE1d3kxOWRmIiwiZW1haWwiOiJhbGljZUBleGFtcGxlLmNvbSIsIm5hbWUiOiJBbGljZSIsImlhdCI6MTc1NjU1MjIxNiwiZXhwIjoxNzU3MTU3MDE2fQ.-U8E6V69VvtTOrk9cmRBzjORTEenpR-o_5wW3IYWPAA",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
 		}
 	]
 }
