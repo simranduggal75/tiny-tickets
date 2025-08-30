@@ -1,6 +1,6 @@
 # TinyTickets 
 
-A simple issue tracking system built with **Express + TypeScript + Prisma + PostgreSQL** (backend) and **Next.js** (frontend, later).
+A simple issue tracking system built with **Express + TypeScript + Prisma + PostgreSQL** (backend) and **Next.js** .
 
 
 
