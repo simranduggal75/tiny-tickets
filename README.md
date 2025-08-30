@@ -493,7 +493,7 @@ Make sure you set your token before running protected requests.
 
 ### Example Workflow
 
-1. **Auth** → Register → Login → copy `token` into collection variable.  
+1. **Auth** → Register → Login → copy 'token' into collection variable.  
 2. **Projects** → Create project → Add member → List projects.  
 3. **Tickets** → Create ticket → List tickets with filters → Update ticket → Delete ticket.  
 4. **Comments** → Add comment to a ticket → List comments.  
