@@ -345,9 +345,156 @@ Errors :-
 
 404 if ticket not found
 
+
+## Comments Endpoints
+
+All comment routes require authentication **and project membership**.  
+Use your JWT token in the header:
+
+Authorization: Bearer <token>
+
+POST /tickets/:ticketId/comments.
+
+Add a new comment to a ticket.  
+Caller must be an **OWNER** or **MEMBER** of the project that owns the ticket.
+
+**Request**
+{
+  "body": "This issue needs urgent attention"
+}
+
+**Response (201)**
+
+{
+  "id": "comment_123",
+  "body": "This issue needs urgent attention",
+  "author": { "id": "user_123", "email": "owner@example.com", "name": "Owner" },
+  "ticketId": "ticket_abc",
+  "createdAt": "2025-08-28T14:00:00.000Z"
+}
+Errors:-
+
+403 if caller is not a project member
+
+404 if ticket not found
+
+GET /tickets/:ticketId/comments.
+
+List all comments for a ticket.
+Caller must be an OWNER or MEMBER of the project.
+
+**Response (200)**
+
+[
+  {
+    "id": "comment_123",
+    "body": "This issue needs urgent attention",
+    "author": { "id": "user_123", "email": "owner@example.com", "name": "Owner" },
+    "createdAt": "2025-08-28T14:00:00.000Z"
+  }
+]
+Errors:-
+
+403 if caller is not a project member
+
+404 if ticket not found
+
+## Labels Endpoints
+
+All label routes require authentication **and project membership**.  
+Use your JWT token in the header:
+
+Authorization: Bearer <token>
+
+POST /projects/:id/labels.
+
+Create a new label for a project.  
+Caller must be an **OWNER** or **MEMBER** of the project.
+
+**Request**
+
+{ "name": "bug" }
+
+**Response (201)**
+
+{
+  "id": "label_123",
+  "name": "bug",
+  "projectId": "proj_123"
+}
+
+GET /projects/:id/labels.
+
+List all labels for a project.
+Caller must be an OWNER or MEMBER.
+
+**Response (200)**
+[
+  { "id": "label_123", "name": "bug", "projectId": "proj_123" },
+  { "id": "label_456", "name": "feature", "projectId": "proj_123" }
+]
+
+POST /tickets/:ticketId/labels/:labelId.
+
+Attach a label to a ticket.
+Caller must be an OWNER or MEMBER of the ticket’s project.
+
+**Response (201)**
+
+{ "message": "Label attached" }
+
+Errors:-
+
+403 if caller is not a project member
+
+404 if ticket not found
+
+DELETE /tickets/:ticketId/labels/:labelId.
+
+Remove a label from a ticket.
+Caller must be an OWNER or MEMBER.
+
+**Response (204)** - No Content
+
+Errors:-
+
+403 if caller is not a project member
+
+404 if ticket not found
+
+
 ## Postman Collection
 
 A ready-to-use Postman collection is included:
 backend/postman/TinyTickets.postman_collection.json
 
 Import this into Postman to test the endpoints directly.
+
+
+### How to Use
+
+1. Open Postman → `Import` → select the above JSON file.
+2. The collection will appear with 5 folders:
+   - **Auth** → Register & Login
+   - **Projects** → Manage projects & members
+   - **Tickets** → Create, list (with filters), details, update, delete
+   - **Comments** → Add & list comments on tickets
+   - **Labels** → Manage labels and attach/detach from tickets
+3. Set the following collection variables in Postman:
+   - `baseUrl` = http://localhost:5088
+   - `token` = paste the JWT you get from `POST /auth/login`  
+   - `projectId`, `ticketId`, `labelId` = automatically saved from create APIs (via test scripts) or set manually
+4. All requests are pre-configured to use:
+
+Authorization: Bearer {{token}}
+
+Make sure you set your token before running protected requests.
+
+
+### Example Workflow
+
+1. **Auth** → Register → Login → copy `token` into collection variable.  
+2. **Projects** → Create project → Add member → List projects.  
+3. **Tickets** → Create ticket → List tickets with filters → Update ticket → Delete ticket.  
+4. **Comments** → Add comment to a ticket → List comments.  
+5. **Labels** → Create label → Attach label to ticket → Detach label.  
