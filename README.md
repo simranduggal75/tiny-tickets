@@ -473,7 +473,7 @@ Import this into Postman to test the endpoints directly.
 
 ### How to Use
 
-1. Open Postman → `Import` → select the above JSON file.
+1. Open Postman → 'Import' → select the above JSON file.
 2. The collection will appear with 5 folders:
    - **Auth** → Register & Login
    - **Projects** → Manage projects & members
@@ -481,9 +481,9 @@ Import this into Postman to test the endpoints directly.
    - **Comments** → Add & list comments on tickets
    - **Labels** → Manage labels and attach/detach from tickets
 3. Set the following collection variables in Postman:
-   - `baseUrl` = http://localhost:5088
-   - `token` = paste the JWT you get from `POST /auth/login`  
-   - `projectId`, `ticketId`, `labelId` = automatically saved from create APIs (via test scripts) or set manually
+   - 'baseUrl' = http://localhost:5088
+   - 'token' = paste the JWT you get from `POST /auth/login`  
+   - 'projectId', 'ticketId', 'labelId' = automatically saved from create APIs (via test scripts) or set manually
 4. All requests are pre-configured to use:
 
 Authorization: Bearer {{token}}
