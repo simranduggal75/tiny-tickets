@@ -104,3 +104,39 @@ ticketsRouter.get(
     return res.json(tickets);
   }
 );
+
+// --- Get Ticket Details ---
+ticketsRouter.get("/tickets/:id", authRequired, async (req: AuthedRequest, res) => {
+  const ticketId = req.params.id;
+  const userId = req.user!.sub;
+
+  // check that user is a member of the project this ticket belongs to
+  const ticket = await prisma.ticket.findUnique({
+    where: { id: ticketId },
+    include: {
+      project: {
+        include: {
+          members: { select: { userId: true } }
+        }
+      },
+      assignee: { select: { id: true, email: true, name: true } }
+    }
+  });
+
+  if (!ticket) return res.status(404).json({ error: "Ticket not found" });
+
+  const isMember = ticket.project.members.some(m => m.userId === userId);
+  if (!isMember) return res.status(403).json({ error: "Not a project member" });
+
+  return res.json({
+    id: ticket.id,
+    title: ticket.title,
+    description: ticket.description,
+    status: ticket.status,
+    priority: ticket.priority,
+    assignee: ticket.assignee,
+    projectId: ticket.projectId,
+    createdAt: ticket.createdAt,
+    updatedAt: ticket.updatedAt
+  });
+});
