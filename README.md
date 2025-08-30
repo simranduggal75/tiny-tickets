@@ -482,7 +482,7 @@ Import this into Postman to test the endpoints directly.
    - **Labels** → Manage labels and attach/detach from tickets
 3. Set the following collection variables in Postman:
    - 'baseUrl' = http://localhost:5088
-   - 'token' = paste the JWT you get from `POST /auth/login`  
+   - 'token' = paste the JWT you get from POST /auth/login' 
    - 'projectId', 'ticketId', 'labelId' = automatically saved from create APIs (via test scripts) or set manually
 4. All requests are pre-configured to use:
 
