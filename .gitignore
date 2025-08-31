@@ -1,19 +1,19 @@
 # Node
-node_modules
+node_modules/
 npm-debug.log*
-yarn*.log*
-pnpm-debug.log*
-dist
+yarn-debug.log*
+yarn-error.log*
+
+# Build
+dist/
+.next/
+out/
 
 # Env
 .env
-*.env
-
-# OS
-.DS_Store
-Thumbs.db
+.env.local
+.env.*.local
 
 # Prisma
-backend/prisma/dev.db*
-
-/src/generated/prisma
+prisma/dev.db
+prisma/*.sqlite
