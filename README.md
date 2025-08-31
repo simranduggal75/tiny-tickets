@@ -2,6 +2,56 @@
 
 A simple issue tracking system built with **Express + TypeScript + Prisma + PostgreSQL** (backend) and **Next.js** .
 
+## 🚀 Features
+
+- **Authentication**
+  - Register / Login / Logout (JWT stored in localStorage)
+- **Projects**
+  - Create / List / View Projects
+  - Add members with roles (OWNER / MEMBER)
+  - Manage project labels
+- **Tickets**
+  - Full CRUD (create, update, delete, view)
+  - Assign tickets to project members
+  - Filter by status / priority / assignee
+  - Add comments to tickets
+- **Frontend**
+  - Next.js App Router, TypeScript, Tailwind CSS
+  - Responsive UI with tables for projects, tickets, and members
+  - Navbar with Logout
+- **Backend**
+  - Express.js, TypeScript, Prisma ORM, PostgreSQL
+  - Role & membership validation
+  - Secure password hashing (bcrypt) + JWT
+
+  ## 🛠️ Tech Stack
+
+- **Frontend**: Next.js 15 (App Router) · TypeScript · Tailwind CSS · Axios
+- **Backend**: Node.js · Express · TypeScript · Prisma ORM · PostgreSQL
+- **Auth**: JWT · bcrypt
+- **Other**: Docker (for Postgres) · ESLint
+
+##  Scripts
+
+### Backend
+
+* `npm run dev` – start API
+* `npx prisma studio` – DB browser
+* `npx prisma migrate dev` – run migrations
+* `npx prisma db seed` – seed demo data
+
+### Frontend
+
+* `npm run dev` – start Next.js
+* `npm run lint` – lint TypeScript code
+* `npm run build` – build for production
+
+---
+## 📌 Notes
+
+* All protected routes require `Authorization: Bearer <token>`.
+* Owner/Member role checks are enforced in backend.
+* CORS configured for local frontend ([http://localhost:3000](http://localhost:3000)).
 
 
 ## Backend Setup
@@ -471,6 +521,65 @@ backend/postman/TinyTickets.postman_collection.json
 Import this into Postman to test the endpoints directly.
 
 
+
+
+## frontend steup
+
+The frontend is built with Next.js (App Router) + TypeScript + Tailwind CSS. It connects to the backend API.
+
+1. Move into the frontend folder
+
+cd frontend
+
+2. Install dependencies
+
+npm install
+
+3. Create environment file
+
+Copy .env.example to .env.local (or create manually):
+
+NEXT_PUBLIC_API_URL=http://localhost:5088
+
+This must point to your backend API.
+
+4. Start the frontend dev server
+
+npm run dev
+
+By default, the app runs on http://localhost:3000.
+
+
+---
+
+## Frontend Features
+
+Auth Pages: Register, Login, Logout
+
+Projects: List projects, view details, create new projects
+
+Members: Add members to projects, role-based access (OWNER / MEMBER)
+
+Tickets: Full CRUD (create, edit, delete), assign to project members
+
+Comments: Add and view comments on tickets
+
+Labels: Project-level labels management
+
+UI: Clean responsive UI with Tailwind tables & buttons, consistent with backend roles/permissions
+
+
+
+---
+
+ Once both backend and frontend are running:
+
+Backend API → http://localhost:5088
+
+Frontend App → http://localhost:3000
+
+
+Login via frontend will store JWT in localStorage and automatically attach it to API requests.
 ### How to Use
 
 1. Open Postman → 'Import' → select the above JSON file.
