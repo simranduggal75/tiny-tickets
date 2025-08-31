@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import API from "@/lib/api";
 
-export default function NewTicketPage() {
-  const { id } = useParams(); // projectId
+export default function EditTicketPage() {
+  const { id, ticketId } = useParams(); // projectId, ticketId
   const router = useRouter();
 
   const [title, setTitle] = useState("");
@@ -14,8 +14,23 @@ export default function NewTicketPage() {
   const [assigneeId, setAssigneeId] = useState("");
   const [members, setMembers] = useState<any[]>([]);
 
-  // Load project members for assignee dropdown
+  // Load ticket + members
   useEffect(() => {
+    if (ticketId) {
+      API.get(`/tickets/${ticketId}`)
+        .then((res) => {
+          const t = res.data;
+          setTitle(t.title);
+          setDescription(t.description || "");
+          setStatus(t.status);
+          setPriority(t.priority);
+          setAssigneeId(t.assignee?.id || "");
+        })
+        .catch((err) => {
+          console.error("Failed to load ticket:", err.response?.data || err.message);
+        });
+    }
+
     if (id) {
       API.get(`/projects/${id}`)
         .then((res) => {
@@ -25,12 +40,12 @@ export default function NewTicketPage() {
           console.error("Failed to load members:", err.response?.data || err.message);
         });
     }
-  }, [id]);
+  }, [id, ticketId]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await API.post(`/projects/${id}/tickets`, {
+      await API.put(`/tickets/${ticketId}`, {
         title,
         description,
         status,
@@ -39,14 +54,14 @@ export default function NewTicketPage() {
       });
       router.push(`/projects/${id}`);
     } catch (err: any) {
-      console.error("Failed to create ticket:", err.response?.data || err.message);
-      alert("Could not create ticket");
+      console.error("Failed to update ticket:", err.response?.data || err.message);
+      alert("Could not update ticket");
     }
   };
 
   return (
     <main className="p-6 max-w-xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">New Ticket</h1>
+      <h1 className="text-2xl font-bold mb-4">Edit Ticket</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           className="w-full border p-2"
@@ -92,7 +107,7 @@ export default function NewTicketPage() {
           ))}
         </select>
         <button className="bg-blue-600 text-white px-4 py-2 rounded">
-          Create Ticket
+          Save Changes
         </button>
       </form>
     </main>

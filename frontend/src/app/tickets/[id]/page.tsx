@@ -9,12 +9,20 @@ export default function TicketDetailPage() {
   const [comments, setComments] = useState<any[]>([]);
   const [body, setBody] = useState("");
 
-  // Load ticket + comments
-  useEffect(() => {
-    if (id) {
-      API.get(`/tickets/${id}`).then((res) => setTicket(res.data));
-      API.get(`/tickets/${id}/comments`).then((res) => setComments(res.data));
+  const fetchTicket = async () => {
+    try {
+      const res = await API.get(`/tickets/${id}`);
+      setTicket(res.data);
+
+      const commentsRes = await API.get(`/tickets/${id}/comments`);
+      setComments(commentsRes.data);
+    } catch (err: any) {
+      console.error("Failed to load ticket:", err.response?.data || err.message);
     }
+  };
+
+  useEffect(() => {
+    if (id) fetchTicket();
   }, [id]);
 
   const addComment = async (e: React.FormEvent) => {
@@ -29,7 +37,7 @@ export default function TicketDetailPage() {
     }
   };
 
-  if (!ticket) return <p className="p-6">Loading...</p>;
+  if (!ticket) return <p className="p-6">Loading ticket...</p>;
 
   return (
     <main className="p-6 space-y-6">
