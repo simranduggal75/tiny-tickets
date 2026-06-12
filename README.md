@@ -1,6 +1,12 @@
-# TinyTickets 
+# TinyTickets 🎫
 
-A simple issue tracking system built with **Express + TypeScript + Prisma + PostgreSQL** (backend) and **Next.js** .
+A simple issue tracking system built with **Express + TypeScript + Prisma + PostgreSQL** (backend) and **Next.js** (frontend).
+.
+
+## Live Demo
+🔗 https://tiny-tickets.vercel.app
+
+> **Note:** The backend is deployed on Render's free tier. If inactive, the server may take 30–60 seconds to wake up on the first request.
 
 ## 🚀 Features
 
@@ -26,9 +32,11 @@ A simple issue tracking system built with **Express + TypeScript + Prisma + Post
 
   ## 🛠️ Tech Stack
 
-- **Frontend**: Next.js 15 (App Router) · TypeScript · Tailwind CSS · Axios
-- **Backend**: Node.js · Express · TypeScript · Prisma ORM · PostgreSQL
-- **Auth**: JWT · bcrypt
+- **Frontend:** Next.js 15, TypeScript, Tailwind CSS, Axios  
+**Backend:** Node.js, Express, TypeScript, Prisma ORM  
+**Database:** PostgreSQL (Supabase)  
+**Auth:** JWT + RBAC (Owner/Member roles)  
+**Deployment:** Vercel (frontend) + Render (backend)
 - **Other**: Docker (for Postgres) · ESLint
 
 ##  Scripts
